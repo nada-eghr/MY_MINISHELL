@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:00:43 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 10:36:34 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:16:53 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_token	*creattoken(char *data)
 		return (NULL);
 	newnode->token = ft_strdup(data);
 	len = ft_strlen(newnode->token);
-	printf("token [0] = %c\n", newnode->token[0]);
-	printf("token [len - 1] = %c\n", newnode->token[len - 1]);
+	// printf("token [0] = %c\n", newnode->token[0]);
+	// printf("token [len - 1] = %c\n", newnode->token[len - 1]);
 	newnode->type = get_token_type(data);
 	newnode->next = NULL;
 	return (newnode);

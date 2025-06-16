@@ -6,43 +6,45 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:27:48 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 16:34:37 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:16:00 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
 
 int	main(void)
 {
 	// atexit(ll);
 	while (1)
 	{
-		char *input = readline("minishell$");
+		char *input = readline("minishell$ ");
+		add_history(input);
 		t_token *tokens = convert_to_node(input);
 		if (!tokens)
 		{
 			free(tokens);
-			return (0);
+			continue;
 		}
 		if (check_error(&tokens) == 1)
 		{
 			// printf("minishell : syntax error"); /*free*/
 			free_list(tokens);
-			return (0);
+			continue;
 		}
 		t_cmd *cmd = list_cmd(tokens);
 		print_cmd(cmd);
 		if (!tokens)
 		{
 			free(tokens);
-			return (0);
+			continue;
 		}
 		if (check_error(&tokens) == 1)
 		{
 			// printf("minishell : syntax error"); /*free*/
 			free_list(tokens);
 			exit(1);
-			return (0);
+			continue;
 		}
 		// t_cmd *cmd = convert_to_cmd(&tokens)
 		//------------

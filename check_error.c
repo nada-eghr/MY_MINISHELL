@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:03:57 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 16:30:40 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:07:21 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,15 @@ bool	check_redirections(t_token **list)
 	while (tmp)
 	{
 		if ((tmp->type == TOKEN_REDIR_IN || tmp->type == TOKEN_REDIR_OUT
-				|| tmp->type == TOKEN_APPEND || tmp->type == TOKEN_HERDOC
-				|| tmp->type == TOKEN_PIPE))
+				|| tmp->type == TOKEN_APPEND || tmp->type == TOKEN_HERDOC))
 		{
 			if (tmp->next == NULL)
 				return (true);
-			else if (tmp->next->type == TOKEN_PIPE
-				|| tmp->next->type == TOKEN_ENV_VAR
-				|| tmp->next->type == TOKEN_UNKNOWN)
+			else if (tmp->next->type != TOKEN_WORD && tmp->next->type != TOKEN_QUOTED)
 				return (true);
 		}
-		if (ft_strcmp(tmp->token, "<>") == 0)
-			return (true);
+		// if (ft_strcmp(tmp->token, "<>") == 0)
+		// 	return (true);
 		tmp = tmp->next;
 	}
 	return (false);

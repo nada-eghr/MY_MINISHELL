@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:57:56 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 16:57:11 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/16 20:08:08 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_token *parse_operator_token(const char *data, int *i)
 	char tmp[3]; // enough for >> or <<
 	int j = 0;
 
-	if ((data[*i + 1] == '>' || data[*i + 1] == '<') && data[*i] != '|')
+	if (((data[*i] == '>' &&  data[*i + 1] == '>') || (data[*i] == '<' && data[*i + 1] == '<')) && data[*i] != '|')
 		tmp[j++] = data[(*i)++];
 	tmp[j++] = data[(*i)++];
 	tmp[j] = '\0';
