@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:34 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 10:51:41 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:44:38 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <ctype.h>
 # include <readline/readline.h>
-# include <stdbool.h>
+# include <stdbool.h>echo
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -30,7 +30,8 @@ typedef enum e_token_type
 	TOKEN_APPEND,    /* >> */
 	TOKEN_HERDOC,    /* << */
 	TOKEN_ENV_VAR,   /* $.. */
-	TOKEN_QUOTED,
+	TOKEN_S_QUOTE,	 /* '...' */
+	TOKEN_D_QUOTE,	 /* "..." */
 	TOKEN_UNKNOWN
 }							t_token_type;
 

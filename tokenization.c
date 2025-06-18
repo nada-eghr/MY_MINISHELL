@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 15:57:56 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/16 20:08:08 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:30:46 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ t_token_type	get_token_type(char *token)
 		return (TOKEN_APPEND);
 	if (ft_strcmp(token, "<<") == 0)
 		return (TOKEN_HERDOC);
-	if ((token[0] == '"' && token[len - 1] == '"') || (token[0] == '\''
-			&& token[len - 1] == '\''))
-		return (TOKEN_QUOTED);
+	if (token[0] == '"' && token[len - 1] == '"')
+		return (TOKEN_D_QUOTE);
+	if (token[0] == '\'' && token[len - 1] == '\'')
+		return (TOKEN_S_QUOTE);
 	if (token[0] == '$' && len > 1 && (isalpha(token[1]) || token[1] == '_'
 			|| token[1] == '?'))
 		return (TOKEN_ENV_VAR);
@@ -98,50 +99,31 @@ t_token *parse_quoted_token(const char *data, int *i, t_token **head)
 
 t_token *parse_word_token(const char *data, int *i)
 {
-	char tmp[256];
-	int j = 0;
-
-	while (data[*i] && !ft_space(data[*i]) && data[*i] != '>'
-		&& data[*i] != '<' && data[*i] != '|' && data[*i] != '\"'
-		&& data[*i] != '\'')
-	{
-		tmp[j++] = data[(*i)++];
-	}
-	tmp[j] = '\0';
-
-	return creattoken(tmp);
+    int start ;
+    start = *i;
+    while (data[*i] && !ft_space(data[*i]) && data[*i] != '>'
+        && data[*i] != '<' && data[*i] != '|' && data[*i] != '\"'
+        && data[*i] != '\'')
+    {
+        if((data[*i + 1] == '\"' && data[*i ])  || (data[*i + 1] == '\'' && data[*i]))
+        {
+            (*i)++;
+            char quote = data[*i];
+            (*i)++;
+            while (data[*i] != quote)
+                (*i)++;
+            // printf("data[%d] = %c\n",*i, data[*i]);
+        }
+        (*i)++;
+    }
+    int end = *i;
+    char *new = substr(data, start, end - start);
+    
+    t_token *token = creattoken(new);
+    // printf("token1 = %s\n", token->token);
+    free(new);
+    return token;
 }
-// t_token *convert_to_node(char *data)
-// {
-// 	int i = 0;
-// 	t_token *head = NULL;
-// 	t_token *token = NULL;
-
-// 	while (data[i])
-// 	{
-// 		while (ft_space(data[i]))
-// 			i++;
-
-// 		if (data[i] == '>' || data[i] == '<' || data[i] == '|')
-// 			token = parse_operator_token(data, &i);
-// 		else if (data[i] == '\'' || data[i] == '"')
-// 		{
-// 			token = parse_quoted_token(data, &i, &head);
-// 			if (!token)
-// 				return NULL;
-// 		}
-// 		else
-// 			token = parse_word_token(data, &i);
-
-// 		if (token)
-// 		{
-// 			add_back(&head, token);
-// 			token = NULL;
-// 		}
-// 	}
-
-// 	return head;
-// }
 
 t_token *convert_to_node(char *data)
 {

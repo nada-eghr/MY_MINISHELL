@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 16:54:08 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 10:37:06 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/16 22:50:48 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ void	print_node_cmd(t_cmd *node_cmd)
 
 void	print_cmd(t_cmd *node_cmd)
 {
-	int	i;
-
+	int	i ;
+	int j = 0;
 	while (node_cmd)
 	{
-		i = 0;
-		printf("command -->");
+		 i = 0;
+		printf("command [%d] -->", j);
 		while (node_cmd->arg[i])
 		{
 			printf(" [ %s ] ", node_cmd->arg[i++]);
@@ -104,5 +104,6 @@ void	print_cmd(t_cmd *node_cmd)
 			node_cmd->redi = node_cmd->redi->next;
 		}
 		node_cmd = node_cmd->next;
+		j++;
 	}
 }
