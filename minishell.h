@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:34 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/18 17:44:38 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/19 22:04:25 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <ctype.h>
 # include <readline/readline.h>
-# include <stdbool.h>echo
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -57,6 +57,22 @@ typedef struct s_cmd
 	t_redirection			*redi;
 	struct s_cmd *next; // next command in pipeline
 }							t_cmd;
+
+
+//---------------------------  env struct  -------------------------------
+
+typedef struct data_env
+{
+	char	*key;
+	char	*value;
+}t_data;
+
+typedef struct s_list
+{
+	t_data			content;
+	struct s_list	*next;
+}t_env_list;
+
 //-----------------------    check_syntaxe    -----------------------------
 
 bool						check_pipe(t_token **list);
@@ -112,5 +128,16 @@ char						*ft_strdup(char *s);
 //--------------------------    utils1    ----------------------------------
 int							ft_isprint(int c);
 int							ft_space(char c);
+ //---------------------------    env_utils    ------------------------------
+ 
+char	*get_line(char *data, char c);
+t_env_list	*ft_lstnew_env(void *content);
+void	ft_lstadd_back(t_env_list **lst, t_env_list *n);
+char	*my_get_env(char *str, t_env_list *env);
+t_env_list	*get_list_env(char **env);
 
+//---------------------------	expand    ------------------------------
+
+t_token *expand_token(t_token *token , t_env_list *env);
+char *get_value(char *str , t_env_list *env);
 #endif
