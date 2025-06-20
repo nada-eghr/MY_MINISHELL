@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:27:48 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/19 21:52:26 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/20 22:36:14 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,7 @@ int	main(int ac , char **av, char **env)
 		}
 		// t_cmd *cmd = list_cmd(tokens);
 		// print_cmd(cmd);
-		// if (!tokens)
-		// {
-		// 	free(tokens);
-		// 	continue;
-		// }
-		// if (check_error(&tokens) == 1)
-		// {
-		// 	// printf("minishell : syntax error"); /*free*/
-		// 	free_list(tokens);
-		// 	exit(1);
-		// 	continue;
-		// }
-		// t_cmd *cmd = convert_to_cmd(&tokens)
+		
 		//------------
 		t_token *current = filter_lst;
 

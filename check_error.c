@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:03:57 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/18 17:39:34 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:45:47 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	check_redirections(t_token **list)
 		{
 			if (tmp->next == NULL)
 				return (true);
-			else if (tmp->next->type != TOKEN_WORD && tmp->next->type != TOKEN_D_QUOTE && tmp->next->type != TOKEN_S_QUOTE )
+			else if (tmp->next->type != TOKEN_WORD && tmp->next->type != TOKEN_D_QUOTE && tmp->next->type != TOKEN_S_QUOTE && tmp->next->type != TOKEN_ENV_VAR )
 				return (true);
 		}
 		// if (ft_strcmp(tmp->token, "<>") == 0)

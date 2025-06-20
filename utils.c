@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 13:08:55 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/15 10:44:52 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/20 22:37:34 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*substr(const char *src, int start, int len)
 {
 	char	*res;
 
-	res = malloc(len + 1);
+	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
 	ft_strncpy(res, src + start, len);

@@ -6,7 +6,7 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:55:34 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/19 22:04:25 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:20:41 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <string.h>
 
+
+extern int	exit_sta;
 //---------------------------------------------------------
 typedef enum e_token_type
 {
@@ -89,8 +91,7 @@ void						print_cmd(t_cmd *node_cmd);
 //-------------------------    get_files     ------------------------------
 
 t_redirection				*add_new(int type, char *file_name);
-void						ft_add_back_redi(t_redirection **head,
-								t_redirection *node);
+void						ft_add_back_redi(t_redirection **head, t_redirection *node);
 t_redirection				*get_files(t_token *token);
 
 //--------------------------    get_param    ------------------------------
@@ -125,9 +126,13 @@ int							ft_strlen(char *str);
 char						*ft_strncpy(char *dst, const char *src, size_t n);
 char						*substr(const char *src, int start, int len);
 char						*ft_strdup(char *s);
+
 //--------------------------    utils1    ----------------------------------
+
 int							ft_isprint(int c);
 int							ft_space(char c);
+char						*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(char *s, int c);
  //---------------------------    env_utils    ------------------------------
  
 char	*get_line(char *data, char c);
