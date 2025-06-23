@@ -6,13 +6,23 @@
 /*   By: naessgui <naessgui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 18:53:48 by naessgui          #+#    #+#             */
-/*   Updated: 2025/06/20 22:55:22 by naessgui         ###   ########.fr       */
+/*   Updated: 2025/06/23 13:36:56 by naessgui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include"minishell.h"
-
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	while ((*s1 || *s2) && n--)
+	{
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+	}
+	return (0);
+}
  static int	count(long nb)
 {
 	int	count;
@@ -63,22 +73,33 @@ char *get_value(char *str, t_env_list *env)
     t_env_list *tmp ;
     // int i = 0;
     tmp = env;
-    // char *status ;
+    char *status = ft_strdup("");
+    char *content;
+    int nb = 127;
     
     str++;
     while (tmp->next)
     {
-        // if(str[i] == '$' || str[i] == '?')
-        //     status = ft_itoa(exit_sta);
+        if(*str == '$' || *str == '?'){
+            status = ft_itoa(nb);
+            str += 2;
+        }
+            
         //  printf("key = %s \n", tmp->content.key);
         //  printf("token = %s \n", str);
-        if (ft_strcmp(str,tmp->content.key) == 0){
-            // printf("value = %s \n", tmp->content.value);
-            return(tmp->content.value);
+        
+        if (ft_strncmp(str,tmp->content.key, ft_strlen(tmp->content.key)) == 0){
+            
+            content= tmp->content.value;
+            status = ft_strjoin(status, content);
+            // printf("value = %s \n", content);
         }
+        
+        // printf("str = %s\n",str);
+        // str = content;
         tmp = tmp->next;
     }
-    return NULL;
+    return status;
     
 }
 t_token *expand_token(t_token *token , t_env_list *env)
@@ -92,7 +113,7 @@ t_token *expand_token(t_token *token , t_env_list *env)
     char *s2;
     t_token *prev;
     
-    prev = NULL;
+    prev = token;
     // prev->type = -1;
     
     // int i = 0;
@@ -106,16 +127,15 @@ t_token *expand_token(t_token *token , t_env_list *env)
         if (tmp->type == TOKEN_ENV_VAR && prev->type != TOKEN_HERDOC)
         {
             new_data = get_value(tmp->token , env);
-            free(tmp->token);
+            // free(tmp->token);
             if (new_data)
                 tmp->token = ft_strdup(new_data);
             else
                 tmp->token = ft_strdup("");
         }
         // printf("hi\n");
-        else if (tmp->type == TOKEN_D_QUOTE && ft_strchr(tmp->token , '$') && (prev->type != TOKEN_HERDOC || prev == NULL))
+        else if (tmp->type == TOKEN_D_QUOTE && ft_strchr(tmp->token , '$') && (prev->type != TOKEN_HERDOC ))
         {
-            printf("hi\n");
             new_data = tmp->token;
             while(new_data[j] != '$' && new_data[j])
                 j++;
